@@ -1,25 +1,11 @@
 import React, { useState } from "react";
 import MenuIcon from "./icons/MenuIcon";
 import UserIcon from "./icons/UserIcon";
-import { motion, AnimatePresence } from "framer-motion";
-import { AiOutlineLeft } from "react-icons/ai";
+import { AnimatePresence } from "framer-motion";
+import SideBar from "./SideBar";
 
 export default function Layout({ children }) {
   const [sideOpen, setSideOpen] = useState(false);
-
-  const sideVariants = {
-    open: {
-      opacity: 1,
-      x: 0,
-    },
-    close: {
-      opacity: 0,
-      x: '-100%',
-      transition: {
-        ease: 'easeIn'
-      }
-    },
-  };
 
   const openSideBar = () => {
     setSideOpen(() => true);
@@ -28,27 +14,7 @@ export default function Layout({ children }) {
   return (
     <div className="relative w-full h-full">
       <AnimatePresence>
-        {sideOpen && (
-          <motion.aside
-            className="absolute left-0 top-0 w-3/4 bottom-0 bg-slate-300 px-8 py-6 z-10 overflow-hidden"
-            variants={sideVariants}
-            initial="close"
-            animate="open"
-            exit="close"
-          >
-              <AiOutlineLeft size={30} onClick={() => setSideOpen(() => false)}/> 
-              {/* {links.map(({ name, to, id }) => (
-          <motion.a
-            key={id}
-            href={to}
-            whileHover={{ scale: 1.1 }}
-            variants={variants}
-          >
-            {name}
-          </motion.a>
-        ))} */}
-          </motion.aside>
-        )}
+        {sideOpen && <SideBar setSideOpen={setSideOpen} />}
       </AnimatePresence>
       <header className="h-20 w-full bg-purple-200 px-8">
         <div className="h-full w-full relative flex items-center justify-center">
